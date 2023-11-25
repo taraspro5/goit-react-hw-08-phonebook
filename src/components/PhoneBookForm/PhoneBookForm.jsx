@@ -1,9 +1,15 @@
 import { Formik, Field, ErrorMessage } from 'formik';
-import { Button, Label, StyledForm } from './PhoneBookForm.styled';
+import {
+  Button,
+  FormContainer,
+  Label,
+  StyledForm,
+} from './PhoneBookForm.styled';
 // import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectContacts } from 'redux/selectors';
 import { addContact } from 'redux/contactsOperation';
+import { Typography } from '@mui/material';
 
 // const phoneBookSchema = Yup.object({
 //   name: Yup.string().required('Required!').min(2, 'Too short!'),
@@ -15,8 +21,10 @@ export const PhoneBookForm = () => {
   const contacts = useSelector(selectContacts);
 
   return (
-    <div>
-      <h1>Phonebook</h1>
+    <FormContainer>
+      <Typography component="h1" variant="h2" sx={{ marginBottom: '5px' }}>
+        Phonebook
+      </Typography>
       <Formik
         initialValues={{
           name: '',
@@ -24,6 +32,7 @@ export const PhoneBookForm = () => {
         }}
         // validationSchema={phoneBookSchema}
         onSubmit={(values, form) => {
+          console.log(values);
           const isContactInBook = contacts.find(
             contact => contact.name === values.name
           );
@@ -44,13 +53,18 @@ export const PhoneBookForm = () => {
 
           <Label>
             <label>Number</label>
-            <Field type="phone" name="phone" required />
-            <ErrorMessage name="phone" component="div" />
+            <Field
+              type="phone"
+              name="number"
+              placeholder="+XX(XXX)-XXX-XX-XX"
+              required
+            />
+            <ErrorMessage name="number" component="div" />
           </Label>
 
           <Button type="submit">Add contact</Button>
         </StyledForm>
       </Formik>
-    </div>
+    </FormContainer>
   );
 };

@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, List } from './ContactsList.styled';
+import { Button, List, ListItem } from './ContactsList.styled';
 import {
   selectError,
   selectIsLoading,
@@ -29,12 +29,12 @@ export const ContactsList = () => {
         <List>
           {contactsAfterFilter.map(contact => {
             return (
-              <li key={contact.id}>
-                {contact.name} {contact.phone}
+              <ListItem key={contact.id}>
+                {contact.name}: {contact.number}
                 <Button onClick={() => dispatch(deleteContact(contact.id))}>
                   Delete
                 </Button>
-              </li>
+              </ListItem>
             );
           })}
         </List>
